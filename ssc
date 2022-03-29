@@ -1,0 +1,51 @@
+require "ocaml.env.paroot-environment"
+local parser_path_unix  = "ocaml/parser/parser.lua"
+local parser_path_win32 = parser_path_unix:gsub("/","\\")
+
+-- lua ocamlc <file> -o <release>
+-- lua ocamlc <file> -b <release
+
+
+function linkedit()
+    if getEnvironmentOS() == "Windows" then
+        --Windows
+        os.execute("lua "..parser_path_win32.." "..arg[1].." -o "..arg[3]..".lua")
+        os.execute("lua "..arg[3]..".lua")
+    else
+        --Unixes
+        os.execute("./lua "..parser_path_unix.." "..arg[1].." -o "..arg[3]..".lua")
+        os.execute("./lua "..arg[3]..".lua")
+    end
+end
+
+function build()
+    local filename = arg[1]:sub(1,arg[1]:find("%.")-1)
+    if getEnvironmentOS() == "Windows" then
+        --Windows
+        os.execute("luac -o "..filename..".luac "..filename..".lua")
+        os.execute("del /f "..arg[3]..".lua")
+    else
+        --Unixes
+        os.execute("./luac -o "..filename..".luac "..filename..".lua")
+        os.execute("rm -Rf "..arg[3]..".lua")
+    end
+end
+
+
+
+if arg[2] == "-o" then
+    linkedit()
+
+elseif arg[2] == "-b" then
+    linkedit()
+    build()
+else
+    print("\nTranslate to Lua source code   (.lua):   lua ocmc <source> -o <out>")
+    print("Or compile to Lua VM bytecode  (.luac):  lua ocmc <source> -b <out>\n")
+    
+    print("<source> = foo.ocaml")
+    print("<out> = foo.lua (or) foo.luac\n\n")
+
+
+    error "Compilation error!"
+end
