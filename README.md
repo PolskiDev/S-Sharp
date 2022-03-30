@@ -13,6 +13,10 @@ a programming language?
 My idea was to bring some syntax elements from C# and the syntax confusion from OCaml, next develop a compiler that gives output
 as *(.lua)* or *(.luac)* files. Since Lua compiles really fast
 even on old or simple hardware, S# could run on any operating system and on any machine, including do some tests with an auxiliary parser that I thought of implementing. That's why I spent a whole day creating this programming language that runs on Lua Virtual Machine, only to have something to do.
+
+<center><i>Developed by Gabriel Margarido</i></center>
+
+
 ### 0A. Compile S# program (<u>bytecode</u> - *.luac*):
 ```
 Generate bytecode (Windows 64-bit):
@@ -46,8 +50,9 @@ Generate Lua File (UNIXes)
 (import) |s-sharp.stdtab|
 (import) |s-sharp.loops|
 (import) |s-sharp.mem|
+(import) |s-sharp.file|
+(import) |s-sharp.os|
 (import) |s-sharp.fn|
-
 
 namespace "yourprogram"
     #@ TODO CODE HERE
@@ -186,13 +191,13 @@ Console.WriteLine( String.length("This is yet another programming language") )
 
 **Conditionals:  if, elseif and else**  
 ```
-if? (|a == 3|) >>
+if:? |a == 3| >>
     @# CODE HERE
 
-elseif:? (|b < 7|) >>
+elseif:? |b < 7| >>
     @# CODE HERE
 
-else?
+else:?
     @# CODE HERE
 
 ..;
@@ -202,7 +207,7 @@ else?
 
 **Looping:  while, for, do-until**
 ```
-while? (|a < 7|) >>
+while? |a < 7| >>
     #@ CODE HERE
 
 ..;
@@ -233,7 +238,7 @@ If the step wasn't specified, it is always going to be (1).
 do?
     #@ CODE HERE
 
-until? (|a > 56|)
+until? |a > 56|
 ```
 
 ### G. Functions (private and public)  
@@ -256,14 +261,22 @@ fn? ("@hello", |a, b, c|)
 
 ```
 
-**(AB) Call public/private <u>lonely</u> functions (args)**
+**(AB1) Call public/private <u>lonely</u> functions (args)**
 ```
 Syscall('hello', |"George", "Julian", "Dean"|)
 ```
   
   
-
   
+  
+**(AB2) Call public/private <u>lonely</u> functions (no args)**
+```
+Syscall('hello')
+```
+  
+
+
+
 **C. Packaged private function**
 ```
 module "client"
@@ -284,12 +297,19 @@ fn? ("client.hello", |a, b, c|)
 
 ```
 
-**(CD) Call public/private <u>packaged</u> functions (args)**
+**(CD1) Call public/private <u>packaged</u> functions (args)**
 ```
 Syscall('client.hello', |"George", "Julian", "Dean"|)
 ```
   
     
+**(CD2) Call public/private <u>lonely</u> functions (no args)**
+```
+Syscall('client.hello')
+```
+  
+
+
 
 ### H. Return types
 
@@ -505,7 +525,97 @@ Struct.join( |$storage|, "$myTable", " ")
 
 ```
   
+  
+### K. File manipulation
+  
+**Write to file**
+```
+#@String to write
+let ( |$myfile_text|, "&Hello world!")
 
+#@File Path
+let ( |$myfile|, "&file.txt")
+
+    #@Open and write to file
+    File.open(|$storage|, |-write|,|$myfile|)
+    File.write(|$storage|,|$myfile_text|)
+
+File.close |$storage|
+
+```
+  
+  
+**Append to file**
+```
+#@String to append
+let ( |$myfile_text|, "&Appended Hello world!")
+
+#@File Path
+let ( |$myfile|, "&file.txt")
+    
+    #@Open and write to file
+    File.open(|$storage|, |-append|,|$myfile|)
+    File.write(|$storage|,|$myfile_text|)
+
+File.close |$storage|
+  
+
+
+```
+  
+  
+**Read from file**
+```
+#@File Path
+let ( |$myfile|, "&file.txt")
+
+    #@Open and read file
+    File.open(|$storage|, |-read|,|$myfile|)
+    File.read(|$final|, |$storage|)
+
+File.close |$storage|
+
+#@Throw Output
+Console.WriteLine |$final|
+```
+  
+
+**Execute Shell Commands**  
+```
+System.Process "start binary.exe"
+```
+
+```
+System.Process "uname -a"
+```
+
+
+**Call Lua <u>variables</u> from S#**  
+  
+
+
+```
+(import) |path.to.lua.module|
+Console.WriteLine |$math.pi|
+
+```
+
+
+**Call Lua <u>functions</u> from S# with arguments**  
+ 
+```
+(import) |path.to.lua.module|
+Syscall('luafunction', |"arg1", "arg2", "arg3", ...|)
+
+```
+
+
+**Call Lua <u>functions</u> from S# without arguments** 
+```
+(import) |path.to.lua.module|
+Syscall('luafunction')
+
+```
 
 Developed by Gabriel Margarido  
 March 30th, 2022

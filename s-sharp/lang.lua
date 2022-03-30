@@ -35,5 +35,6 @@ function namespace(main)
     file = io.open(main..".lua", "w")
 end
 function interrupt()
+    file:flush()
     file:close()
 end

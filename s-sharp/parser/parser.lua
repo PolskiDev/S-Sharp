@@ -71,9 +71,9 @@ token = token:gsub("len%? ",        "#")                -- (len? )        len? n
 token = token:gsub("while%? ",      "declare_while")    -- while statement     while? (condition)
 token = token:gsub("for%? ",        "declare_for")      -- for statement       for? (condition)
 
-token = token:gsub("if%? ",         "declare_if")       -- if statement        if? (condition)
+token = token:gsub("if:%? ",         "declare_if")       -- if statement        if? (condition)
 token = token:gsub("elseif:%? ",     "declare_elseif")   -- elseif statement    elseif:? (condition)
-token = token:gsub("else%?",        "declare_else()")   -- else statement      else?
+token = token:gsub("else:%?",        "declare_else()")   -- else statement      else?
                                                         --                     ..;
 
 token = token:gsub("do%?",          "declare_repeat()") -- do... statement        do?

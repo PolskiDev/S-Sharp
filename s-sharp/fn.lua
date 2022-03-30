@@ -29,13 +29,19 @@ function ret(val)
 end
 
 function Syscall(fun_name,arguments)
-    if arguments:sub(1,1) == "&" then
-        file:write(fun_name.."(\""..arguments:sub(2).."\")",'\n')
 
-    elseif arguments:sub(1,1) == "$" then
-        file:write(fun_name.."("..arguments:sub(2)..")",'\n')
-    else
-        file:write(fun_name.."("..arguments..")",'\n')
-    end    
+    if arguments ~= nil then
+        if arguments:sub(1,1) == "&" then
+            file:write(fun_name.."(\""..arguments:sub(2).."\")",'\n')
+
+        elseif arguments:sub(1,1) == "$" then
+            file:write(fun_name.."("..arguments:sub(2)..")",'\n')
+        else
+            file:write(fun_name.."("..arguments..")",'\n')
+        end
         
+    else
+        file:write(fun_name.."()",'\n')
+    end
+
 end
