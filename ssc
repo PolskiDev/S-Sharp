@@ -1,5 +1,5 @@
-require "ocaml.env.paroot-environment"
-local parser_path_unix  = "ocaml/parser/parser.lua"
+require "s-sharp.env.paroot-environment"
+local parser_path_unix  = "s-sharp/parser/parser.lua"
 local parser_path_win32 = parser_path_unix:gsub("/","\\")
 
 -- lua ocamlc <file> -o <release>
@@ -40,10 +40,10 @@ elseif arg[2] == "-b" then
     linkedit()
     build()
 else
-    print("\nTranslate to Lua source code   (.lua):   lua ocmc <source> -o <out>")
-    print("Or compile to Lua VM bytecode  (.luac):  lua ocmc <source> -b <out>\n")
+    print("\nTranslate to Lua source code   (.lua):   lua ssc <source> -o <out>")
+    print("Or compile to Lua VM bytecode  (.luac):  lua ssc <source> -b <out>\n")
     
-    print("<source> = foo.ocaml")
+    print("<source> = foo.ss")
     print("<out> = foo.lua (or) foo.luac\n\n")
 
 

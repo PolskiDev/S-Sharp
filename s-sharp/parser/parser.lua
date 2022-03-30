@@ -56,9 +56,9 @@ token = token:gsub("!FALSE","true")
 token = token:gsub("NULL","nil")
 
 
-token = token:gsub("..;",           "declare_end()")    -- close block     (..;)
+token = token:gsub("%.%.;",           "declare_end()")    -- close block     (..;)
 token = token:gsub(";;",            "()")               -- end block
-token = token:gsub("|",             "\"")               -- pipe to double quotes
+token = token:gsub("|",             "\'")               -- pipe to double quotes
 
 token = token:gsub("%(import%)",    "require")          -- import external packages
 token = token:gsub(">>", "")                            -- do | then

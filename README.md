@@ -40,6 +40,15 @@ Generate Lua File (UNIXes)
 ### 1. Basic S# program structure:  
   
 ```
+(import) |s-sharp.lang|
+(import) |s-sharp.stdio|
+(import) |s-sharp.stdlib|
+(import) |s-sharp.stdtab|
+(import) |s-sharp.loops|
+(import) |s-sharp.mem|
+(import) |s-sharp.fn|
+
+
 namespace "yourprogram"
     #@ TODO CODE HERE
 
@@ -70,6 +79,8 @@ Console.Write |$msg|
 ```
 
 ### C. Variables are always declared between **| x |** and with a (dollar sign)  **$**  before the variable name. To declare a variable, we use the method *let*.  
+
+The **&** symbol is only used on a variable assign or function return to make a reference to a string, just like the **$** is used to make a reference to a variable at the declaration and assign.
 
 **Local variables**
 ```
@@ -144,28 +155,28 @@ Console.ReadLine |$line|
 
 ### E1. Get string length via *$len?*
 
-**Store into a variable**
-Remember: Use always single quotes inside | x |
+**Store into a variable**  
+Remember: Use always double quotes inside | x |
 ```
-let (|$size|, |$len? 'This is yet another programming language'|)
+let (|$size|, |$len? "This is yet another programming language"|)
 ```
 
-**Use directly**
-Remember: Use always single quotes inside | x |
+**Use directly**  
+Remember: Use always double quotes inside | x |
 ```
-Console.WriteLine |$len? 'This is yet another programming language'|
+Console.WriteLine |$len? "This is yet another programming language"|
 ```
 
 
 ### E2. Get string length via *String.length(str)*
 
-**Store into a variable**
-Remember: Use always single quotes inside | x |
+**Store into a variable**  
+Remember: Use always double quotes inside | x |
 ```
 let (|$size|, String.length("This is yet another programming language") )
 ```
 
-**Use directly**
+**Use directly**  
 ```
 Console.WriteLine( String.length("This is yet another programming language") )
 ```
@@ -173,7 +184,7 @@ Console.WriteLine( String.length("This is yet another programming language") )
 
 ### F. Structures
 
-**Conditionals:  if, elseif and else**
+**Conditionals:  if, elseif and else**  
 ```
 if? (|a == 3|) >>
     @# CODE HERE
@@ -247,7 +258,7 @@ fn? ("@hello", |a, b, c|)
 
 **(AB) Call public/private <u>lonely</u> functions (args)**
 ```
-Syscall(|hello|, '|George|, |Julian|, |Dean|')
+Syscall('hello', |"George", "Julian", "Dean"|)
 ```
   
   
@@ -275,7 +286,7 @@ fn? ("client.hello", |a, b, c|)
 
 **(CD) Call public/private <u>packaged</u> functions (args)**
 ```
-Syscall(|client.hello|, '|George|, |Julian|, |Dean|')
+Syscall('client.hello', |"George", "Julian", "Dean"|)
 ```
   
     
@@ -393,10 +404,10 @@ is only placed at the **first** variable.
 
 **Direct string concatenation**
 ```
-let ( |$final_direct|, |'Hello '..'world'|)
+let ( |$final_direct|, |"Hello ".."world"|)
 
 ```
-Note: Single quotes are always used when between pipes |x|. 
+Note: Double quotes are always used when between pipes |x|. 
 
 
 **Boolean values (reserved keywords)**
@@ -415,6 +426,85 @@ Null reserved keyword:
     |NULL|
 
 ```
+  
+
+### K. Structures/Tables
+
+**Create new structure (table/array)**  
+Structures, arrays or tables are used to storage data. Unlike C, we can storage different types of data inside the same structure (struct). Structures can be also used as arrays. It's also possible to put a structure inside another structure, it means that we can create multidimensional arrays (structures). Do not forget to put **@$** or **$** <u>before the structure name</u>, since it's <u>a kind of variable</u>.
+  
+
+**Private structures (@$)**
+```
+#@ Same data type
+Struct.new("@$myTable", |1, 2, 3, 4, 5, 6, ... | )
+
+
+#@ Different data type
+Struct.new("@$myTable", |"Michael", 2, 3, 4, "David", 3.141532, 6.0, ...| )
+
+```
+  
+  
+
+**Public structures ($)**
+```
+#@ Same data type
+Struct.new("$myTable", |1, 2, 3, 4, 5, 6, ... | )
+
+
+#@ Different data type
+Struct.new("$myTable", |"Michael", 2, 3, 4, "David", 3.141532, 6.0, ... | )
+
+```
+  
+
+
+**Structure Methods**
+```
+#@ Organize all elements inside the structure from lower to higher.
+Struct.SortFromLower("$myTable")
+
+
+#@ Iterate (i) a structure and print each index on the screen (multiple lines).
+Struct.iterate( |i|,"$myTable" )
+
+
+#@ Iterate (i) a structure and print each index on the screen (single line).
+Struct.iterate( |i|,"$myTable", |TRUE| )
+
+
+#@ Add elements to the current structure
+#@ ( exit variable [$storage], position [of array (3)], related variable [string ($v)] )
+
+let (|$v|, "&Dean")
+Struct.add( |$storage|, 3, |$v| )
+Console.WriteLine |$storage|
+
+
+
+#@ Remove element from an index of current structure
+#@ ( exit variable [$storage], position [of array (3)],
+
+Struct.remove( |$storage|, 3 )
+Console.WriteLine |$storage|
+
+
+
+#@ Get value from structure index
+
+let ( |$price|, Struct.GetPosition("$myTable", 4) )
+Console.WriteLine |$price|
+
+
+#@ Join all elements from a structure together in another element.
+#@ Exit on |$storage|, joining together all from "$myTable"
+#@ separating each element by using spacebar (" ")
+
+Struct.join( |$storage|, "$myTable", " ")
+
+```
+  
 
 
 Developed by Gabriel Margarido  

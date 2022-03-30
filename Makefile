@@ -1,5 +1,6 @@
 #@ UNIXes
 #CC=./lua
+#CC=lua
 
 #@ Windows
 CC=lua.exe
