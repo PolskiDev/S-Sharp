@@ -84,6 +84,9 @@ token = token:gsub("fn%? ",         "declare_function ") -- function (private)  
 
                                                         -- function (public )           fn? (|name| "a, b, c, ...")
                                                         --                              ..;
+token = token:gsub("loop?",         "declare_loop()")   -- infinite loop
+token = token:gsub("break?",        "declare_break()")  -- break loop when used (if/while/for) statements
+
 
 -- write parsed file
 local parsed = io.open(arg[3], "w")

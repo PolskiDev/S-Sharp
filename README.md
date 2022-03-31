@@ -241,6 +241,17 @@ do?
 until? |a > 56|
 ```
 
+S# also offers a new way to work with infinite loops and break statement. See an example:
+
+```
+loop?
+    if:? | a > 10| >>
+        break?
+    ..;
+
+..;
+```
+
 ### G. Functions (private and public)  
   
 **A. Public function**

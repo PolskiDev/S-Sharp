@@ -1,3 +1,7 @@
+function declare_loop()
+    file:write("while true do",'\n')
+end
+
 function declare_while(condition)
     file:write("while "..condition.." do",'\n')
 end
@@ -29,4 +33,7 @@ end
 
 function declare_end(name,value)
     file:write("end",'\n')
+end
+function declare_break()
+    file:write("break",'\n')
 end
