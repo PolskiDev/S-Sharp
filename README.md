@@ -90,7 +90,7 @@ The **&** symbol is only used on a variable assign or function return to make a 
 **Local variables**
 ```
 #@ String variable  (uses at beginning: &)
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 
 
 #@ Variable-reference variable  (uses at beginning: $)
@@ -361,17 +361,17 @@ dec |$counter:1|
 
 **Replace string**
 ```
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 String.replace(|$msg|, "world","Jacob!")
 ```
 
 **Slice string**
 ```
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 String.slice(|$msg|, 5)
 
 
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 String.slice(|$msg|, 3,10)
 ```
 Note: You can also use *String.substring* instead of *String.slice*
@@ -379,7 +379,7 @@ Note: You can also use *String.substring* instead of *String.slice*
 
 **Get index of character/string**
 ```
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 String.getIndexOf(|$msg|,"l")
 
 ```
@@ -388,34 +388,34 @@ Note: You can also use *String.find* instead of *String.getIndexOf*
 
 **Put the whole string to uppercase**
 ```
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 let ( |$upper_msg|, String.uppercase(|$msg|) )
 
 ```
 **Put the whole string to lowercase**
 ```
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 let ( |$upper_msg|, String.lowercase(|$msg|) )
 
 ```
 
 **Put the whole string in reverse order**
 ```
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 let ( |$upper_msg|, String.reverse(|$msg|) )
 
 ```
 
 **Get the string length (1)**
 ```
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 let ( |$upper_msg|, String.length(|$msg|) )
 
 ```
 
 **Get the string length (2)**
 ```
-let( |$msg|, "&Hello world")
+let ( |$msg|, "&Hello world")
 let ( |$size|, |$len? msg| )
 
 ```
@@ -423,8 +423,8 @@ let ( |$size|, |$len? msg| )
 
 **Variable string concatenation**
 ```
-let( |$msg_1|, "&Hello ")
-let( |$msg_2|, "&world")
+let ( |$msg_1|, "&Hello ")
+let ( |$msg_2|, "&world")
 
 let ( |$final|, |$msg_1 .. msg_2|)
 
